@@ -1,31 +1,28 @@
+#pragma once
+
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <vector>
+#include "Sound_Handler.h"
 
 class player
 {
     private:
-    
-    SDL_Rect rect;
-    int speed;
-    
-
     //bullets
     const int shoot_cd = 100;
     int temp_shoot_cd = 1;
     float bullet_speed = 0.8;
-    int bullet_size = 5;
-    
-    
+    int bullet_size = 10;
 
-    
     //screen infos
     int SCREEN_WIDTH = 600;
     int SCREEN_HEIGHT = 800;
 
     public:
+        SDL_Rect rect;
         std::pair<int,int> position;
         int life;
+        int speed;
         int ultimate_bombs = 100;
         std::vector<SDL_Rect> bullets;
         std::vector<float> bullets_y;
@@ -33,9 +30,7 @@ class player
 
         player(int player_life,int x, int y);
         ~player();
-    
-        //sdl functions
-        void draw(SDL_Renderer* renderer);
+
 
         //actions
         void shoot();

@@ -1,8 +1,4 @@
-#include <iostream>
-#include <SDL2/SDL.h>
-#include <vector>
 #include "player.h"
-
 
 
 player::player(int player_life,int x, int y)
@@ -11,10 +7,12 @@ player::player(int player_life,int x, int y)
     position.second = y;
     rect.x = x;
     rect.y = y;
-    rect.w = 20;
-    rect.h = 20;
+    rect.w = 40;
+    rect.h = 40;
     speed = 3;
     life = player_life;
+
+
 }
 
 player::~player()
@@ -26,8 +24,11 @@ void player::shoot()
     SDL_Rect bullet;
     bullet.x = position.first + rect.w/2;
     bullet.y = position.second;
-    bullet.w = bullet_size;
+    bullet.w = 2*bullet_size;
     bullet.h = bullet_size;
+
+    //play sound
+    Sound_Handler::play_player_shoot();
 
     bullets.push_back(bullet);
     bullets_y.push_back(bullet.y);
@@ -122,18 +123,4 @@ void player::update(std::vector<SDL_Rect>& enemy_bullets, std::vector<float>& en
 
     
 }
-
-void player::draw(SDL_Renderer* renderer)
-{
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-    SDL_RenderFillRect(renderer, &rect);
-
-    //desenha os tiros
-    for(int i = 0; i < bullets.size(); i++)
-    {
-        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 125);
-        SDL_RenderFillRect(renderer, &bullets[i]);
-    }
-}
-
 

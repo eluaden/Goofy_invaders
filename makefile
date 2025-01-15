@@ -1,25 +1,38 @@
-# Compiler
+# Nome do executável
+TARGET = bin/Game
+
+# Compilador e flags
 CXX = g++
+CXXFLAGS = -Iinclude -MMD -MP
+LDFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer
 
-# Compiler flags
-CXXFLAGS = -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -std=c++11
+# Diretórios
+SRC_DIR = src
+INCLUDE_DIR = include
+OBJ_DIR = build
+BIN_DIR = bin
 
-# Source files
-SRCS = main.cpp
+# Arquivos fonte e objetos
+SRCS = $(wildcard $(SRC_DIR)/*.cpp)
+OBJS = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRCS))
+DEPFILES = $(OBJS:.o=.d)
 
+# Regras principais
+all: $(TARGET)
 
-# Default target
-all: space_invaders
+$(TARGET): $(OBJS)
+	@mkdir -p $(BIN_DIR)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
-# Link object files to create the executable
-space_invaders: main.cpp player.o enemies.o
-	g++ main.cpp player.o enemies.o -o space_invaders $(CXXFLAGS)
-player.o: player.cpp player.h
-	g++ -c player.cpp -o player.o $(CXXFLAGS)
-enemies.o: enemies.cpp enemies.h
-	g++ -c enemies.cpp -o enemies.o $(CXXFLAGS)
-# Clean up build files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -rf $(OBJ_DIR) $(BIN_DIR)
 
-.PHONY: all clean
+run: all
+	./$(TARGET)
+
+# Inclui dependências geradas automaticamente
+-include $(DEPFILES)

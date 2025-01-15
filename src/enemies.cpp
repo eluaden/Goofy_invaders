@@ -1,8 +1,4 @@
-#include <iostream>
-#include <SDL2/SDL.h>
 #include "enemies.h"
-#include <vector>
-#include <random>
 
 
 enemies::enemies(int size, int cd, int chance)
@@ -27,7 +23,7 @@ void enemies::spawn()
             enemy.x = 0;
             enemy.y = 0;
             enemy.w = 50;
-            enemy.h = 50;
+            enemy.h = 70;
 
             //evitar colisoes com outros inimigos
             bool colide = true;
@@ -96,8 +92,8 @@ void enemies::update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets
             SDL_Rect bullet;
             bullet.x = horde[i].x + horde[i].w/2;
             bullet.y = horde[i].y;
-            bullet.w = 5;
-            bullet.h = 5;
+            bullet.w = 20;
+            bullet.h = 20;
 
             enemy_bullets.push_back(bullet);
             enemy_bullets_y.push_back(bullet.y);
@@ -137,19 +133,3 @@ void enemies::update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets
 
 
 }
-
-void enemies::draw(SDL_Renderer* renderer)
-{
-    for(int i = 0; i<horde.size(); i++)
-    {
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-        SDL_RenderFillRect(renderer, &horde[i]);
-    }
-
-    for(int i = 0; i<enemy_bullets.size(); i++)
-    {
-        SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-        SDL_RenderFillRect(renderer, &enemy_bullets[i]);
-    }
-}
-

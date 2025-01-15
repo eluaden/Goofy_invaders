@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <vector>
@@ -16,24 +18,26 @@ class enemies
 
         //enemy bullet infos
         
-        std::vector<float> bullets_speed;
-        std::vector<int> bullets_size;
+        
 
         //screen infos
         int SCREEN_WIDTH = 600;
         int SCREEN_HEIGHT = 800;
 
     public:
+    
         std::vector<SDL_Rect> horde;
         std::vector<int> speed;
         std::vector<int> shoot_cd;
         std::vector<SDL_Rect> enemy_bullets;
         std::vector<float> enemy_bullets_y;
+        std::vector<float> bullets_speed;
+        std::vector<int> bullets_size;
+
         enemies(int size, int cd, int chance);
         ~enemies();
     
-        //sdl functions
-        void draw(SDL_Renderer* renderer);
+
 
         //actions
         void spawn();
