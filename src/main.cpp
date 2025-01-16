@@ -5,6 +5,7 @@
 #include "enemies.h"
 #include "interface.h"
 #include "Texture_Handler.h"
+#include "Sound_Handler.h"
 
 const int SCREEN_WIDTH = 600;
 const int SCREEN_HEIGHT = 800;
@@ -55,6 +56,7 @@ int main()
     //loop principal
     bool running = true;
     SDL_Event event;
+    Sound_Handler:: play_music();
 
     while(running) 
     {
@@ -77,6 +79,7 @@ int main()
         {
            interface.Game_Over(renderer, &horde, &player_1, &running);
            player_1.life = 5;
+           Sound_Handler:: play_music();
         }
 
         //objetos
@@ -85,6 +88,7 @@ int main()
 
         // Desenhar texturas
         textures.draw_textures(renderer, &player_1.rect, &player_1.bullets, &horde.enemy_bullets, &interface.life_rects, &horde.horde);
+
 
         
         SDL_RenderPresent(renderer);
