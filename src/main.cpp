@@ -1,6 +1,8 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <vector>
+#include <unistd.h>
+
 #include "player.h"
 #include "enemies.h"
 #include "interface.h"
@@ -9,6 +11,8 @@
 
 const int SCREEN_WIDTH = 600;
 const int SCREEN_HEIGHT = 800;
+const int FPS = 60;
+
 
 
 int main() 
@@ -38,7 +42,7 @@ int main()
     (
         window,
         -1,
-        SDL_RENDERER_ACCELERATED
+        SDL_RENDERER_ACCELERATED|SDL_RENDERER_PRESENTVSYNC
     );
     if(renderer == nullptr) 
     {
@@ -49,8 +53,8 @@ int main()
     //objects
     Interface_Handler interface(5);
     Texture_Handler textures(renderer);
-    player player_1(5,(SCREEN_WIDTH/3 * 2), (SCREEN_HEIGHT/3 * 2));
-    enemies horde(8, 100, 50);
+    player player_1(3,(SCREEN_WIDTH/3 * 2), (SCREEN_HEIGHT/3 * 2));
+    enemies horde(8, 100, 100);
 
 
     //loop principal
@@ -75,23 +79,30 @@ int main()
         //interface
         interface.update(player_1.life);
 
+        //objetos
+        player_1.update(horde.enemy_bullets, horde.enemy_bullets_y);
+        horde.update(player_1.bullets, player_1.bullets_y, &player_1.kills);
+
+        // Desenhar texturas
+        textures.draw_textures(renderer, &player_1.rect, &player_1.bullets, &horde.enemy_bullets, &interface.life_rects, &horde.horde, &player_1.kills, player_1.ultimate_bombs);
+        SDL_RenderPresent(renderer);
+
+
+        //finalização de game (game over ou level up)
         if (player_1.life <= 0)
         {
            interface.Game_Over(renderer, &horde, &player_1, &running);
-           player_1.life = 5;
-           Sound_Handler:: play_music();
+           Sound_Handler::play_music();
+        }
+        if(player_1.kills >= interface.level_info.level_limit)
+        {
+            interface.level_up(renderer, &horde, &player_1, &running);
+            Sound_Handler::play_music();
         }
 
-        //objetos
-        player_1.update(horde.enemy_bullets, horde.enemy_bullets_y);
-        horde.update(player_1.bullets, player_1.bullets_y);
-
-        // Desenhar texturas
-        textures.draw_textures(renderer, &player_1.rect, &player_1.bullets, &horde.enemy_bullets, &interface.life_rects, &horde.horde);
-
-
+        //FPS
+        usleep(1000);
         
-        SDL_RenderPresent(renderer);
     }
 
 
@@ -100,6 +111,7 @@ int main()
     SDL_DestroyWindow(window);
     SDL_Quit();
 
+    return (0);
 }
 
 

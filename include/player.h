@@ -11,7 +11,7 @@ class player
     //bullets
     const int shoot_cd = 100;
     int temp_shoot_cd = 1;
-    float bullet_speed = 0.8;
+    float bullet_speed = 3.0;
     int bullet_size = 10;
 
     //screen infos
@@ -24,6 +24,7 @@ class player
         int life;
         int speed;
         int ultimate_bombs = 100;
+        int kills;
         std::vector<SDL_Rect> bullets;
         std::vector<float> bullets_y;
 

@@ -41,5 +41,5 @@ class enemies
 
         //actions
         void spawn();
-        void update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets_y);	
+        void update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets_y, int*  kills);	
 };

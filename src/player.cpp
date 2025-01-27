@@ -9,8 +9,9 @@ player::player(int player_life,int x, int y)
     rect.y = y;
     rect.w = 40;
     rect.h = 40;
-    speed = 3;
+    speed = 7;
     life = player_life;
+    kills = 0;
 
 
 }
@@ -87,8 +88,9 @@ void player::update(std::vector<SDL_Rect>& enemy_bullets, std::vector<float>& en
     //atualiza os tiros
     //cooldown do tiro
     if(temp_shoot_cd > 0) temp_shoot_cd--;
+    else temp_shoot_cd = shoot_cd;
 
-    //atualiza a posicao dos tiros
+    // atualiza a posicao dos tiros
     for(int i = 0; i < bullets.size(); i++)
     {
         bullets_y[i] -= bullet_speed;
@@ -105,7 +107,7 @@ void player::update(std::vector<SDL_Rect>& enemy_bullets, std::vector<float>& en
         }
     }
 
-    //colisao com os tiros inimigos
+    // colisao com os tiros inimigos
     for(int i = 0; i < enemy_bullets.size(); i++)
     {
         if(SDL_HasIntersection(&rect, &enemy_bullets[i]))

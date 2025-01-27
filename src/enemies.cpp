@@ -6,6 +6,7 @@ enemies::enemies(int size, int cd, int chance)
     horde_max_size = size;
     spawn_cd_max = cd;
     spawn_chance = chance;
+    spawn_cd = spawn_cd_max;
 }
 
 enemies::~enemies()
@@ -45,15 +46,15 @@ void enemies::spawn()
             
             horde.push_back(enemy);
             int temp_speed = rand() % 2;
-            temp_speed == 0 ? speed.push_back(2) : speed.push_back(-2);
+            temp_speed == 0 ? speed.push_back(1) : speed.push_back(-1);
             shoot_cd.push_back(rand() % 100);
 
-
+            
         }
     } 
 }
 
-void enemies::update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets_y)
+void enemies::update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets_y, int*  kills)
 {
     //spawn
     if(spawn_cd == 0)
@@ -65,13 +66,14 @@ void enemies::update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets
     {
         spawn_cd--;
     }
-    
-    //movimento horda
-    for(int i  = 0; i<horde.size(); i++)
+
+    //movimento
+    for(int i = 0; i<horde.size(); i++)
     {
         horde[i].x += speed[i];
-        
     }
+
+
 
     //limites da tela
     for(int i = 0; i<horde.size(); i++)
@@ -97,7 +99,7 @@ void enemies::update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets
 
             enemy_bullets.push_back(bullet);
             enemy_bullets_y.push_back(bullet.y);
-            bullets_speed.push_back(0.5);
+            bullets_speed.push_back(1.5);
             bullets_size.push_back(5);
 
             shoot_cd[i] = shoot_cd_max;
@@ -127,6 +129,7 @@ void enemies::update(std::vector<SDL_Rect>& bullets, std::vector<float>& bullets
                 shoot_cd.erase(shoot_cd.begin() + i);
                 *bullets.erase(bullets.begin() + j);
                 *bullets_y.erase(bullets_y.begin() + j);
+                *kills += 1;
             }
         }
     }
