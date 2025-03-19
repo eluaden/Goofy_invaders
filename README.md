@@ -30,7 +30,7 @@ sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf
 ```sh
 g++ -o goofy_invaders main.cpp -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf  
 ```
-###🔹 Run the game:
+### 🔹 Run the game:
 ```sh
 ./goofy_invaders   
 ```
