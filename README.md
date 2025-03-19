@@ -25,3 +25,13 @@ To compile this game, you need to install **SDL2.0** and have a **C++ compiler**
 #### 🔹 Install dependencies (for Linux-based systems):
 ```sh
 sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+```
+### 🔹 Compile the game:
+```sh
+g++ -o goofy_invaders main.cpp -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf  
+```
+###🔹 Run the game:
+```sh
+./goofy_invaders   
+```
+
