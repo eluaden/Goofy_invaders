@@ -1,33 +1,27 @@
-Goofy Invaders
+# Goofy Invaders
 
-The objective of this project is to learn SDL2.0 by developing a game.
+## 📌 Project Objective
 
-🎮 Description
+The objective of this project is to learn **SDL2.0** by developing a game.
 
-Goofy Invaders is a simple game made with SDL2.0, inspired by the classic Space Invaders. The goal is to destroy enemies before they reach your ship.
+## 🎮 Description
 
-⚡ How to Compile
+**Goofy Invaders** is a simple game made with **SDL2.0**, inspired by the classic *Space Invaders*. The goal is to destroy enemies before they reach your ship.
 
-To compile this game, you need to install SDL2.0 and have a C++ compiler.
+## ⚡ How to Compile
 
-Install dependencies (for Linux-based systems):
+To compile this game, you need to install **SDL2.0** and have a **C++ compiler**.
 
+### 🛠 Requirements
+
+- **SDL2**
+- **SDL2_image**
+- **SDL2_mixer**
+- **SDL2_ttf**
+- **C++ compiler (GCC, Clang, MSVC, etc.)**
+
+### 🏗 Installation & Compilation
+
+#### 🔹 Install dependencies (for Linux-based systems):
+```sh
 sudo apt-get install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
-
-Compile the game:
-
-g++ -o goofy_invaders main.cpp -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf
-
-Run the game:
-
-./goofy_invaders
-
-🎵 Credits
-
-Main music: Nene on OpenGameArt.
-
-📜 License
-
-This project is open source and can be freely used for learning and personal modifications.
-
-Have fun playing Goofy Invaders! 🚀
